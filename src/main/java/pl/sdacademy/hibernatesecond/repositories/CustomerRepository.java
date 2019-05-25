@@ -59,15 +59,26 @@ public class CustomerRepository {
         Customer mergeCustomer = entityManager.merge(customer);
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setId(mergeCustomer.getId());
-
+        customerDTO.setFirstName(mergeCustomer.getFirstName());
+        customerDTO.setLastName(mergeCustomer.getLastName());
+        customerDTO.setLogin(mergeCustomer.getLogin());
+        customerDTO.setPassword(mergeCustomer.getPassword());
 
         return customerDTO;
 
     }
 
+    @Transactional
+    // TODO: metoda modyfikuje obiekt Customer o zadanym id na właściwości obiektu przekazanego w parametrze
     public Customer updateCustomer(Long customerId, Customer newCustomer) {
-        // TODO: metoda modyfikuje obiekt Customer o zadanym id na właściwości obiektu przekazanego w parametrze
-        return null;
+
+        Customer customer = findCustomerById(customerId);
+        customer.setFirstName(newCustomer.getFirstName());
+        customer.setLastName(newCustomer.getLastName());
+        customer.setLogin(newCustomer.getLogin());
+        customer.setPassword(newCustomer.getPassword());
+
+        return entityManager.merge(customer);
     }
 
     public Customer changePassword(Long customerId, String newPassword) {

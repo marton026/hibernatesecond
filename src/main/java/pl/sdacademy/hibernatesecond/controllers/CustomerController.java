@@ -48,7 +48,10 @@ public class CustomerController {
         return customerRepository.addShoppingCartToCustomer(customerId, shoppingCart);
     }
 
-    @PutMapping
+    @PutMapping("/customer/update/{customerId}")
+    public Customer updateCustomer(@PathVariable Long customerId,@RequestBody Customer newCustomer) {
+        return updateCustomer(customerId, newCustomer);
+    }
 
 
 }
