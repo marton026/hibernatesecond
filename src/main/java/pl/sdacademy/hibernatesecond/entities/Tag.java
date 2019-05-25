@@ -1,18 +1,44 @@
 package pl.sdacademy.hibernatesecond.entities;
 
+import javax.persistence.*;
 import java.util.List;
 
-// TODO: enzja, nazwa tabeli: tags
+@Entity
+@Table(name = "tags")
 public class Tag {
 
-    // TODO: identyfikator, generowany automatycznie
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // TODO: kolumna tag_names
+    @Column(name = "tag_names")
     private String tagName;
 
-    // TODO: relacja wiele do wielu
+    @ManyToMany(mappedBy = "tags")
     private List<Product> products;
 
-    // TODO: getters setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

@@ -1,29 +1,78 @@
 package pl.sdacademy.hibernatesecond.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-// TODO: encja, nazwa tabeli: shopping_carts
+@Entity
+@Table(name = "shopping_carts")
 public class ShoppingCart {
 
-    // TODO: identyfikator, generowany automatycznie
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // TODO: kolumna names
+    @Column(name = "name")
     private String name;
 
-    // TODO: kolumna created
+    @Column(name = "created")
     private LocalDate created;
 
-    // TODO: kolumna total_prices
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    // TODO: relacja jeden do jednego
+    @OneToOne(mappedBy = "shoppingCart")
     private Customer customer;
 
-    // TODO: relacja jeden do wielu
+    @OneToMany(mappedBy = "shoppingCart")
     private List<Product> products;
 
-    // TODO: getters setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

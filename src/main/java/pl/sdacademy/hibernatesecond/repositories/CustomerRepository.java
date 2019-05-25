@@ -1,44 +1,68 @@
 package pl.sdacademy.hibernatesecond.repositories;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import pl.sdacademy.hibernatesecond.dtos.CustomerDTO;
 import pl.sdacademy.hibernatesecond.entities.Customer;
 import pl.sdacademy.hibernatesecond.entities.ShoppingCart;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-// TODO: klasa repozytorium
+@Repository
 public class CustomerRepository {
 
-    // TODO: konteks utrwalania
+    @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     public void addCustomer(Customer customer) {
-        // TODO: metoda dodaje nowy obiekt Customer
+        entityManager.persist(customer);
     }
 
+    @Transactional
     public List<Customer> findAllCustomers() {
-        // TODO: metoda zwraca listę wszystkich obiektów Customer
-        return null;
+        List<Customer> customers = entityManager.createQuery("from Customer", Customer.class).getResultList();
+        return customers;
     }
 
+    @Transactional
     public Customer findCustomerById(Long customerId) {
-        // TODO: metoda zwraca obiekt Customer o zadanym id
-        return null;
+        Customer customer = entityManager.find(Customer.class, customerId);
+        return customer;
     }
 
+    @Transactional
     public Customer findCustomerByLogin(String login) {
-        // TODO: metoda zwraca obiekt Customer o zadanym loginie
-        return null;
+        Customer customer = entityManager.createQuery("from Customer c where c.login=:login", Customer.class)
+                .setParameter("login", login)
+                .getSingleResult();
+        return customer;
     }
 
+    @Transactional
     public Customer findCustomerByFirstNameAndLastName(String firstName, String lastName) {
-        // TODO: metoda zwraca obiekt Customer o zadanym imieniu i nazwisku
-        return null;
+        Customer customer = entityManager.createQuery("from Customer c where c.firstName=:firstName and " +
+                "c.lastName=:lastName", Customer.class)
+                .setParameter("firstName", firstName)
+                .setParameter("lastName", lastName)
+                .getSingleResult();
+        return customer;
     }
 
-    public Customer addShoppingCartToCustomer(Long customerId, ShoppingCart shoppingCart) {
-        // TODO: metoda dodaje koszyk dla klienta o zadanym id
-        return null;
+    @Transactional
+    public CustomerDTO addShoppingCartToCustomer(Long customerId, ShoppingCart shoppingCart) {
+        Customer customer = entityManager.find(Customer.class, customerId);
+        customer.setShoppingCart(shoppingCart);
+        shoppingCart.setCustomer(customer);
+        Customer mergeCustomer = entityManager.merge(customer);
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(mergeCustomer.getId());
+
+
+        return customerDTO;
+
     }
 
     public Customer updateCustomer(Long customerId, Customer newCustomer) {

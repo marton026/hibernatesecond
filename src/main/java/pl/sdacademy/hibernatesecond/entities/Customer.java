@@ -1,25 +1,81 @@
 package pl.sdacademy.hibernatesecond.entities;
 
-// TODO: encja, tabela "customers"
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
 
-    // TODO: identyfikator, generowany automatycznie
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
-    // TODO: kolumna first_names
+    @Column(name = "firstnames")
     private String firstName;
 
-    // TODO: kolumna last_names
+    @Column(name = "lastnames")
     private String lastName;
 
-    // TODO: kolumna logins
+    @Column(name = "logins")
+    //@UniqueElements
     private String login;
 
-    // TODO: kolumna passwords
+    @Column(name = "passwords")
     private String password;
 
-    // TODO: relacja jeden do jednego
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shopping_carts_id",referencedColumnName = "id")
     private ShoppingCart shoppingCart;
 
-    // TODO: getters setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 }

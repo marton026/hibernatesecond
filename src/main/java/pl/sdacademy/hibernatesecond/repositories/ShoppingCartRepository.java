@@ -1,15 +1,18 @@
 package pl.sdacademy.hibernatesecond.repositories;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.sdacademy.hibernatesecond.entities.Product;
 import pl.sdacademy.hibernatesecond.entities.ShoppingCart;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-// TODO: klasa repozytorium
+@Repository
 public class ShoppingCartRepository {
 
-    // TODO: konteks utrwalania
+    @PersistenceContext
     private EntityManager entityManager;
 
     public ShoppingCart findShoppingCartById(Long id) {
@@ -22,9 +25,11 @@ public class ShoppingCartRepository {
         return null;
     }
 
+    @Transactional
     public List<ShoppingCart> findAllShoppingCarts() {
-        // TODO: znajduje wszystkie koszyki
-        return null;
+        List<ShoppingCart> list = entityManager.createQuery("from ShoppingCart",ShoppingCart.class)
+                .getResultList();
+        return list;
     }
 
     public ShoppingCart findMostExpensiveShoppingCart() {

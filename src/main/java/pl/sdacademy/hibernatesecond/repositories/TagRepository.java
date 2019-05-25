@@ -1,14 +1,16 @@
 package pl.sdacademy.hibernatesecond.repositories;
 
+import org.springframework.stereotype.Repository;
 import pl.sdacademy.hibernatesecond.entities.Tag;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-// TODO: klasa repozytorium
+@Repository
 public class TagRepository {
 
-    // TODO: konteks utrwalania
+    @PersistenceContext
     private EntityManager entityManager;
 
     public void addTag(Tag tag) {

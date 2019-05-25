@@ -1,16 +1,18 @@
 package pl.sdacademy.hibernatesecond.repositories;
 
+import org.springframework.stereotype.Repository;
 import pl.sdacademy.hibernatesecond.entities.Product;
 import pl.sdacademy.hibernatesecond.entities.Tag;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.List;
 
-// TODO: klasa repozytorium
+@Repository
 public class ProductRepository {
 
-    // TODO: konteks utrwalania
+   @PersistenceContext
     private EntityManager entityManager;
 
     public void addProduct(Product product) {

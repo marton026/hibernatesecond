@@ -1,8 +1,15 @@
 package pl.sdacademy.hibernatesecond.controllers;
 
-// TODO: kontroler REST
+import org.springframework.web.bind.annotation.RestController;
+import pl.sdacademy.hibernatesecond.repositories.ProductRepository;
+
+
+@RestController
 public class ProductController {
 
-    // TODO: mapowania dla klas z repo
+  private ProductRepository productRepository;
 
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 }

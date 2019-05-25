@@ -1,8 +1,15 @@
 package pl.sdacademy.hibernatesecond.controllers;
 
-// TODO: kontroler REST
+import org.springframework.web.bind.annotation.RestController;
+import pl.sdacademy.hibernatesecond.repositories.TagRepository;
+
+
+@RestController
 public class TagController {
 
-    // TODO: mapowania dla klas z repo
+   private TagRepository tagRepository;
 
+    public TagController(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
 }
